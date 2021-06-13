@@ -44,19 +44,19 @@ class MainWindow(QMainWindow):
     def navigate_to_url(self):
         url = self.url_bar.text()
 
-        if 'https://' in url:
+        if '://' in url:
             self.browser.setUrl(QUrl(url))
         elif 'www.' in url:
-            if 'https://' in url:
+            if '://' in url:
                 self.browser.setUrl(QUrl(url))
-            elif 'https://' not in url:
+            elif '://' not in url:
                 url = 'https://' + url
                 self.browser.setUrl(QUrl(url))
-        elif 'www.' not in url:
-            url = input('search >>> ').replace(' ','+')
-            template = f'https://www.google.com/search?ei=v04xYMemCYyf4-EPo_22sA4&q={url}&oq={url}&gs_lcp=Cgdnd3Mtd2l6EAMyBwguEEMQkwIyBAgAEAoyBggAEAoQAjIECC4QQzIGCAAQChACMgQIABAKMgQIABAKMgQIABBDMgQIABAKMgQIABAKOgoIABCxAxCwAxACOgcIABCwAxBDOg0IABCxAxCDARCwAxACOgsIABCxAxCDARCwAzoHCC4QsAMQQzoKCAAQsQMQgwEQQzoPCAAQsQMQgwEQAhCfARBDOgQIABACOgQILhACOgYIABAKEEM6AggAOgIILjoGCC4QChACOgQILhAKOgcILhANEJMCOgQIABANOgYIABANEAI6BAguEA1QtRFY5jhgqTpoAnAAeACAAcQBiAGnD5IBBDAuMTOYAQCgAQGqAQdnd3Mtd2l6yAEKwAEB&sclient=gws-wiz&ved=0ahUKEwiHgtH-hfnuAhWMzzgGHaO-DeYQ4dUDCA0&uact=5'
-            self.browser.setUrl(QUrl(template))
-
+        else:
+            url = url.replace(' ', '+')
+            url = f'http://www.google.com/search?q={url}'
+            print(url)
+            self.browser.setUrl(QUrl(url))
 
     def update_url(self, q):
         self.url_bar.setText(q.toString())
